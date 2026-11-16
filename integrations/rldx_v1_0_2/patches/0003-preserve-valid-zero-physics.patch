@@ -1,0 +1,31 @@
+diff --git a/rldx/data/state_action/state_action_processor.py b/rldx/data/state_action/state_action_processor.py
+--- a/rldx/data/state_action/state_action_processor.py
++++ b/rldx/data/state_action/state_action_processor.py
+@@ -539,10 +539,10 @@ class StateActionProcessor:
+ 
+         Returns:
+             Dict of normalized values. Always a dict (possibly empty) — never
+-            None. All-zero tactile/torque modalities are skipped (absent sensor
+-            data), which may produce a smaller dict than the input. Callers
+-            must detect missing modalities explicitly rather than relying on
+-            a None sentinel.
++            None. A present tactile/torque key is retained even when every
++            value is zero: zero is a valid no-contact/no-load measurement.
++            Sensor absence must be represented by a missing key so callers can
++            distinguish it from a valid zero-valued observation.
+         """
+         result = {}
+         for compound_key, values in physics.items():
+@@ -557,12 +557,6 @@ class StateActionProcessor:
+                 modality, key = compound_key, compound_key
+ 
+             if self._has_params(embodiment_tag, modality, key):
+-                # All-zero tactile/torque signals the sensor was absent for this
+-                # sample — skip only this modality. The previous `return None`
+-                # discarded the entire `result` mid-loop, which silently
+-                # dropped valid sibling modalities already normalized above.
+-                if modality in ("torque", "tactile") and np.all(values == 0):
+-                    continue
+                 from rldx.data.utils import normalize_values_q99
+ 
+                 params = self.norm_params[embodiment_tag][modality][key]

@@ -1,0 +1,87 @@
+{
+  "schema_version": "dexjoco.pinch_tongs_replay_outcome_audit.v1",
+  "strict_replay": {
+    "randomize": false,
+    "restore_state": true,
+    "extend_steps": 0,
+    "episodes": 100,
+    "succeeded": 90,
+    "failed": 10,
+    "tracebacks": 0,
+    "failed_episodes": [
+      {
+        "episode_index": 3,
+        "input_ordinal": 4,
+        "raw_episode": "table_tongs_demo_11_2026-03-12_15-27-11_160198",
+        "steps": 517
+      },
+      {
+        "episode_index": 4,
+        "input_ordinal": 5,
+        "raw_episode": "table_tongs_demo_11_2026-03-16_09-10-31_724780",
+        "steps": 503
+      },
+      {
+        "episode_index": 15,
+        "input_ordinal": 16,
+        "raw_episode": "table_tongs_demo_15_2026-03-16_09-12-00_729182",
+        "steps": 373
+      },
+      {
+        "episode_index": 18,
+        "input_ordinal": 19,
+        "raw_episode": "table_tongs_demo_16_2026-03-16_09-12-21_884261",
+        "steps": 445
+      },
+      {
+        "episode_index": 30,
+        "input_ordinal": 31,
+        "raw_episode": "table_tongs_demo_21_2026-03-12_15-31-25_883254",
+        "steps": 364
+      },
+      {
+        "episode_index": 44,
+        "input_ordinal": 45,
+        "raw_episode": "table_tongs_demo_34_2026-03-12_15-41-43_785955",
+        "steps": 432
+      },
+      {
+        "episode_index": 67,
+        "input_ordinal": 68,
+        "raw_episode": "table_tongs_demo_58_2026-03-12_15-55-06_121613",
+        "steps": 304
+      },
+      {
+        "episode_index": 81,
+        "input_ordinal": 82,
+        "raw_episode": "table_tongs_demo_6_2026-03-12_15-13-59_180712",
+        "steps": 461
+      },
+      {
+        "episode_index": 88,
+        "input_ordinal": 89,
+        "raw_episode": "table_tongs_demo_73_2026-03-12_16-05-00_653136",
+        "steps": 696
+      },
+      {
+        "episode_index": 95,
+        "input_ordinal": 96,
+        "raw_episode": "table_tongs_demo_9_2026-03-10_20-24-49_845193",
+        "steps": 458
+      }
+    ]
+  },
+  "diagnostic_extend30_replay": {
+    "extend_steps": 30,
+    "rerun_episodes": 10,
+    "succeeded": 10,
+    "failed": 0,
+    "purpose": "diagnostic success-counter recovery only"
+  },
+  "formal_dataset_policy": {
+    "episodes": 100,
+    "uses_original_raw_length_only": true,
+    "appended_extend30_frames": 0,
+    "tactile_column": "current tactile_gt.taxel_force_local only"
+  }
+}

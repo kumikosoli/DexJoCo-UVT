@@ -1,0 +1,28 @@
+pretrained_model_path: "/HOME/sysu_xdliang/sysu_xdliang_1/HDD_POOL/linmin/UR-manipulation-modelscope/Echo_VLA/checkpoint/params" # local Orbax pi05_base
+pretrained_model_action_dim_44_path: "/HOME/sysu_xdliang/sysu_xdliang_1/HDD_POOL/linmin/Dexjoco/checkpoints/pi05_base_action_dim_44/params" # convert from pretrained_model_path via scripts/convert_to_action_dim_44_model.py
+dataset_root: "../datasets/dexjoco_lerobot_datasets" # expected layout: <dataset_root>/<task_name>/, e.g. hammer_nail, click_mouse, ..., bimanual_photograph
+rand_full_dataset_root: "../datasets/dexjoco_lerobot_datasets_rand_full" # expected layout: <rand_full_dataset_root>/<task_name>/ with the same 11 task names
+ckpts_root: "../checkpoints/pi05_ckpts"
+rand_full_ckpts_root: "../checkpoints/pi05_rand_full_ckpts"
+# Trained DexJoCo π0.5 checkpoint used to initialize Baseline-Continue and Effect+Grounding.
+# Put either <root>/<task>/params or <root>/<task>/<exp>/<step>/params.
+effect_init_checkpoint_root: "../checkpoints/pi05_ckpts"
+effect_cache_root: "../outputs/effect_vla/cache"
+effect_extra_steps: 13000
+effect_bootstrap_steps: 3000
+effect_pilot_tasks:
+  - water_plant
+  - pick_bucket
+  - hammer_nail
+# Pilot3 multitask baseline (action_dim=44). Per-task continue/effect configs are still
+# single-arm action_dim=32 — use a multitask continue/effect recipe when starting from this ckpt.
+effect_init_checkpoints:
+  water_plant: "../checkpoints/dexjoco_pilot3_task_balanced/pilot3_task_balanced_v2/29999/params"
+  pick_bucket: "../checkpoints/dexjoco_pilot3_task_balanced/pilot3_task_balanced_v2/29999/params"
+  hammer_nail: "../checkpoints/dexjoco_pilot3_task_balanced/pilot3_task_balanced_v2/29999/params"
+wandb_enabled: true
+
+batch_size: 32
+# batch_size: 1 # for test
+single_arm_steps: 30000
+dual_arm_steps: 60000

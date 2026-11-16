@@ -1,0 +1,16 @@
+diff --git a/rldx/data/stats.py b/rldx/data/stats.py
+--- a/rldx/data/stats.py
++++ b/rldx/data/stats.py
+@@ -253,6 +253,12 @@ def generate_rel_stats(dataset_path: Path | str, embodiment_tag: EmbodimentTag)
+         for key, action_config in zip(action_config.modality_keys, action_config.action_configs)
+         if action_config.rep == ActionRepresentation.RELATIVE
+     ]
++    # Absolute-action datasets do not consume relative statistics.  Returning
++    # here also keeps a complete, read-only LeRobot dataset immutable instead
++    # of opening its existing relative_stats.json with mode="w" just to write
++    # the same empty mapping back to disk.
++    if not action_keys:
++        return
+     stats_path = Path(dataset_path) / LE_ROBOT_REL_STATS_FILENAME
+     if stats_path.exists():
+         with open(stats_path, "r") as f:

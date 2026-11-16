@@ -1,0 +1,17 @@
+diff --git a/rldx/experiment/trainer.py b/rldx/experiment/trainer.py
+--- a/rldx/experiment/trainer.py
++++ b/rldx/experiment/trainer.py
+@@ -325,6 +325,13 @@ class RLDXTrainer(Trainer):
+             return_outputs=True,
+             num_items_in_batch=num_items_in_batch,
+         )
++        # Every rank must stop on the first non-finite total loss.  Do this
++        # before rank-gated metric logging so NaN/Inf cannot be hidden or let
++        # one worker continue into a distributed collective.
++        if not torch.isfinite(loss.detach()).all().item():
++            raise FloatingPointError(
++                f"Non-finite total training loss at global_step={self.state.global_step}: {loss.detach()!r}"
++            )
+         self.loss = loss
+ 
+         # Accuracy calculation
